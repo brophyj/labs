@@ -227,7 +227,7 @@ difference. Instead of writing $\bar{Y} - \bar{X}$ repeatedly, let's
 define this difference as a new variable 
 $d \equiv \bar{Y} - \bar{X}$ . 
 
-Suppose you use CLT and report $d \pm 2 s_d/\sqrt{N}$ as a
+Suppose you use CLT and report $d \pm 2 s_d/\sqrt{N}$, with $s_d = \sqrt{s_X^2+s_Y^2}$, as a
 95% confidence interval for the difference and this interval does not
 include 0 (a false positive).
 Because the interval does not include 0, this implies that either
@@ -238,7 +238,7 @@ then implies that the t-statistic is more extreme than 2, which in
 turn suggests that the p-value must be smaller than 0.05
 (approximately, for a more exact calculation use `qnorm(.05/2)` instead of 2).
 The same calculation can be made if we use the t-distribution instead of
-CLT (with `qt(.05/2, df=N-2)`).
+CLT (with `qt(.05/2, df=2*N-2)`).
 In summary, if a 95% or 99% confidence interval does not include
 0, then the p-value must be smaller than 0.05 or 0.01 respectively. 
 
@@ -257,6 +257,9 @@ controlIndex <- which(dat$Diet=="chow")
 treatmentIndex <- which(dat$Diet=="hf")
 control <- dat[controlIndex,2]
 treatment <- dat[treatmentIndex,2]
+```
+
+```{r}
 t.test(treatment,control)$conf.int
 ```
 
